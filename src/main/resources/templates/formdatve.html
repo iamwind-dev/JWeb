@@ -1,0 +1,143 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+
+  form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+
+  form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 15px;
+  }
+
+  form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  form button:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<form method="post" th:action="@{'/datphim/save'}" th:object="${khachhangModel}"
+      onsubmit="validateInput(event)" >
+  <label> Số Chứng Minh Nhân dân </label>
+  <input type="text" id="cccd" name="" th:field="*{cccd}"  placeholder="So CMND" required> <br>
+
+  <label> Họ và tên </label>
+  <input type="text" id="hoten" name="hoten" th:field="*{hoten}"  placeholder="Họ và tên"> <br>
+
+  <label> Số Điện thoại </label>
+  <input type="text" name="sdt" th:field="*{sdt}"  placeholder="SDT"> <br>
+
+  <label> Email </label>
+  <input type="text" name="email" th:field="*{email}"  placeholder="email"> <br>
+
+
+  <label> Mã Rạp Chiếu </label>
+  <select id="marapchieu" name="marapchieu" required>
+    <option value="">-- Chọn Rạp Chiếu --</option>
+    <option th:each="rap : ${raplist}" th:value="${rap.marapchieu}" th:text="${rap.diachi}"></option>
+  </select> <br>
+
+  <select id="maphim" name="maphim" required>
+    <option value="">-- Chọn Phim --</option>
+    <option th:each="phim : ${phimlist}" th:value="${phim.maphim}" th:text="${phim.tenphim}"></option>
+  </select>  <br>
+
+  <label> Ngày xem </label>
+  <input type="date" id="ngayxem" name="ngayxem" th:field="${chitietdatveModel.ngayxem}"  placeholder="Ngày xem" required> <br>
+
+  <label> Suất chiếu </label>
+  <input type="text" name="suatchieu" th:field="${chitietdatveModel.suatchieu}"  placeholder="Suất chiếu"> <br>
+
+  <label> Số vé </label>
+  <input type="text" id="sove" name="sove" th:field="${chitietdatveModel.sove}"  placeholder="Suất chiếu" required> <br>
+
+
+  <label> Vị trí ghế </label>
+  <input type="text" name="vitrighe" th:field="${chitietdatveModel.vitrighe}"  placeholder="Vị trí ghế"> <br>
+
+
+  <label> Thành tiền </label>
+  <input type="text" name="thanhtien" th:field="${chitietdatveModel.thanhtien}"  placeholder="Thành tiền"> <br>
+
+
+  <button onclick="">Submit</button>
+</form>
+
+<script>
+  function validateInput(event) {
+      var cccd = document.getElementById("cccd").value;
+     var ngayxem = document.getElementById("ngayxem").value;
+    var sove = document.getElementById("sove").value;
+     var selectIndexRap = document.getElementById("marapchieu").selectedIndex;
+     var selectIndexPhim = document.getElementById("maphim").selectedIndex;
+     if (cccd === "") {
+      alert("Vui lòng nhập dữ liệu CCCD");
+       event.preventDefault();
+      return;
+     }
+    if (ngayxem === "" ) {
+      alert("Vui lòng nhập dữ liệu ngày xem");
+      event.preventDefault();
+      return;
+    }
+    if (sove === "") {
+      alert("Vui lòng nhập dữ liệu số vé");
+      event.preventDefault();
+      return;
+    }
+     if (selectIndexRap === 0 || selectIndexPhim == 0 ) {
+      alert("Vui lòng chọn một lựa chọn rạp và phim ");
+      event.preventDefault();
+      return;
+    }
+    if (ngayTotNghiep === "" || new Date(ngayTotNghiep) > today) {
+      alert("Ngày tốt nghiệp không được để trống và không thể là ngày trong tương lai.");
+      event.preventDefault();
+      return;
+    }
+    // Xử lý logic khi dữ liệu hợp lệ
+    //...
+  }
+</script>
+</body>
+</html>

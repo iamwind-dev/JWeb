@@ -1,0 +1,142 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<style>
+    /* Định dạng chung */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    input[type="text"] {
+        padding: 5px;
+        width: 300px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Định dạng bảng */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table th, .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .thead-light th {
+        background-color: #e9ecef;
+    }
+
+    form button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<form method="get" action="search">
+    <label> Search </label>
+    <input type="text" name="cccd" placeholder="CCCD">
+
+    <input type="text" name="marapchieu" placeholder="Ma Rap Chieu">
+
+    <input type="text" name="maphim" placeholder="Ten Phim">
+
+    <input type="date" name="ngayxem" placeholder="Ngay xem">
+
+
+
+    <input type="submit" value="Search">
+</form>
+
+<table border="1" class="table">
+    <thead class="thead-light">
+    <tr>
+        <th>CCCD</th>
+        <th>Ma rap chieu</th>
+        <th>Phim</th>
+        <th>Ngay xem</th>
+        <th>Suat chieu</th>
+        <th>So ve</th>
+        <th>Vi tri ghe</th>
+
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <form method="get" action="delete">
+    <tr th:each=" list : ${listchitiet}">
+        <td id="cccd" name="cccd" th:text="${list.cccd}"></td>
+        <td id="marapchieu" th:text="${list.marapchieu}"></td>
+        <td id="maphim" th:text="${list.maphim}"></td>
+        <td id="ngayxem" th:text="${list.ngayxem}"></td>
+        <td th:text="${list.suatchieu}"></td>
+        <td th:text="${list.sove}"></td>
+        <td th:text="${list.vitrighe}"></td>
+
+
+        <td ><input type="submit" value="Delete"></td>
+        <input type="text" name="cccd" th:value="${list.cccd}" hidden>
+        <input type="text" name="marapchieu" th:value="${list.marapchieu}" hidden>
+        <input type="text" name="maphim" th:value="${list.maphim}" hidden>
+        <input type="text" name="ngayxem" th:value="${list.ngayxem}" hidden>
+    </tr>
+    </form>
+    </tbody>
+</table>
+
+</body>
+</html>
